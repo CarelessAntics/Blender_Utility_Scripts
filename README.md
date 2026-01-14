@@ -6,6 +6,7 @@ Miscellaneous utility scripts for Blender to ease my switch over from Maya
 Exports selected objects as separate fbx files. Parent the exportable model to an empty, and name the empty as the desired filename. The script moves the selected root objects to scene origin and exports them to the selected directory.
 
 The tool can be found on the right side of the viewport next to the gizmo and item properties (click on the tiny arrow for the toolbar to come out)
+
 ![alt text](images/batch_exporter_menu_location.png "Batch exporter menu location")
 
 ## ah_change_grid_subdivs
@@ -13,6 +14,7 @@ The tool can be found on the right side of the viewport next to the gizmo and it
 This script changes the grid size with a hotkey, either doubling or halving the line spacing. 
 By default the hotkeys are:
 | Hotkey | Function |
+| --- | --- |
 | shift + NUM+ |  Increase Grid Size (Double spacing)|
 | shift + NUM- |  Decrease Grid Size (Halve spacing)|
 | shift + NUM0 |  Reset Grid Size |
