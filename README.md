@@ -5,13 +5,15 @@ Menu panel location for all tools with a menu
 
 ![alt text](images/menu_location.png "Menu location")
 
-## ah_batch_exporter
+## Documentation
+
+### ah_batch_exporter
 
 Exports selected objects as separate fbx files. Parent the exportable model to an empty, and name the empty as the desired filename. The script moves the selected root objects to scene origin and exports them to the selected directory.
 
 The tool can be found on the right side of the viewport next to the gizmo and item properties (click on the tiny arrow for the toolbar to come out)
 
-## ah_set_vertex_colors
+### ah_set_vertex_colors
 
 Modify vertex colors for the selected vertices by color channel.
 
@@ -23,7 +25,7 @@ Modify vertex colors for the selected vertices by color channel.
 
 ![alt text](images/vcol_example1.png "Example use")
 
-## ah_change_grid_subdivs
+### ah_change_grid_subdivs
 
 No menu, only hotkeys
 This script changes the grid size with a hotkey, either doubling or halving the line spacing. 
@@ -34,7 +36,7 @@ By default the hotkeys are:
 | shift + NUM- |  Decrease Grid Size (Halve spacing)|
 | shift + NUM0 |  Reset Grid Size |
 
-## ah_change_snap_mode
+### ah_change_snap_mode
 
 No menu, only hotkeys
 Adds the option to assign hotkeys to scroll through snapping modes, or to directly jump to a specific snapping mode. Out of the box pressing control while transforming objects lets you turn on snapping, but to select the mode (e.g. vertex, grid, etc.) you need to click through a dropdown. By default none of the hotkeys are set to not overwrite any default blender behavior, so you need to assign them yourself.
