@@ -6,7 +6,7 @@ bl_info = {
     "blender": (5, 0, 0),
     "description": "Use hotkeys to resize grid, doubling or halving the size",
     "category": "Utility",
-    "doc_url": "",
+    "doc_url": "https://github.com/CarelessAntics/Blender_Utility_Scripts",
 }
 
 

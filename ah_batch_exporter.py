@@ -46,7 +46,7 @@ def batch_export(context):
         name = bpy.path.clean_name(obj.name)
         fn = os.path.join(export_dir, name)
 
-        bpy.ops.export_scene.fbx(filepath=fn + ".fbx", use_selection=True)
+        bpy.ops.export_scene.fbx(filepath=fn + ".fbx", use_selection=True, global_scale=1, object_types={'MESH'}, apply_scale_options='FBX_SCALE_NONE', axis_forward='X', axis_up='Z', use_metadata=False)
 
         # Can be used for multiple formats
         # bpy.ops.export_scene.x3d(filepath=fn + ".x3d", use_selection=True)
