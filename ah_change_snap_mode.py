@@ -6,7 +6,7 @@ bl_info = {
     "blender": (5, 0, 0),
     "description": "Scroll through the snap modes with a hotkey",
     "category": "Utility",
-    "doc_url": "",
+    "doc_url": "https://github.com/CarelessAntics/Blender_Utility_Scripts",
 }
 
 
