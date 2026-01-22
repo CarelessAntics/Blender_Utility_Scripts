@@ -5,7 +5,7 @@ bl_info = {
     "blender": (5, 0, 0),
     "description": "Batch export meshes to Unreal. Moves each root object to world origin and exports them as an .fbx",
     "category": "Utility",
-    "doc_url": "",
+    "doc_url": "https://github.com/CarelessAntics/Blender_Utility_Scripts",
 }
 
 
@@ -46,7 +46,7 @@ def batch_export(context):
         name = bpy.path.clean_name(obj.name)
         fn = os.path.join(export_dir, name)
 
-        bpy.ops.export_scene.fbx(filepath=fn + ".fbx", use_selection=True, global_scale=1, object_types={'MESH'}, apply_scale_options='FBX_SCALE_NONE', axis_forward='X', axis_up='Z', use_metadata=False)
+        bpy.ops.export_scene.fbx(filepath=fn + ".fbx", use_selection=True, global_scale=1, UEBATCHEXPORT_types={'MESH'}, apply_scale_options='FBX_SCALE_NONE', axis_forward='X', axis_up='Z', use_metadata=False)
 
         # Can be used for multiple formats
         # bpy.ops.export_scene.x3d(filepath=fn + ".x3d", use_selection=True)
@@ -55,7 +55,7 @@ def batch_export(context):
 
         bpy.ops.object.select_all(action='DESELECT')
 
-        print("written:", fn)
+        # print("written:", fn)
 
 
     view_layer.objects.active = obj_active
@@ -64,7 +64,7 @@ def batch_export(context):
         obj.select_set(True)
 
 
-class OBJECT_OT_Exporter(bpy.types.Operator):
+class UEBATCHEXPORT_OT_Exporter(bpy.types.Operator):
     """Tooltip"""
     bl_idname = "ah.batch_exporter"
     bl_label = "Batch Exporter"
@@ -80,13 +80,13 @@ class OBJECT_OT_Exporter(bpy.types.Operator):
     def invoke(self, context, event):
         return self.execute(context)
     
-class OBJECT_PT_ExporterPanel(bpy.types.Panel):
+class UEBATCHEXPORT_PT_ExporterPanel(bpy.types.Panel):
     """Creates a Panel in the scene context of the properties editor"""
     bl_label = "Batch Export"
-    bl_idname = "OBJECT_PT_ExporterPanel"
+    bl_idname = "UEBATCHEXPORT_PT_ExporterPanel"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_category = "Batch Exporter"
+    bl_category = "ah tools"
 
     def draw(self, context):
         layout = self.layout
@@ -105,15 +105,15 @@ class OBJECT_PT_ExporterPanel(bpy.types.Panel):
 
 # Register and add to the "object" menu (required to also use F3 search "Simple Object Operator" for quick access).
 def register():
-    bpy.utils.register_class(OBJECT_OT_Exporter)
+    bpy.utils.register_class(UEBATCHEXPORT_OT_Exporter)
     bpy.types.Scene.ah_prop_export_path = bpy.props.StringProperty(name="Output Path", subtype="DIR_PATH", default="")
-    bpy.utils.register_class(OBJECT_PT_ExporterPanel)
+    bpy.utils.register_class(UEBATCHEXPORT_PT_ExporterPanel)
 
 
 def unregister():
-    bpy.utils.unregister_class(OBJECT_OT_Exporter)
+    bpy.utils.unregister_class(UEBATCHEXPORT_OT_Exporter)
     del bpy.types.Scene.ah_prop_export_path
-    bpy.utils.unregister_class(OBJECT_PT_ExporterPanel)
+    bpy.utils.unregister_class(UEBATCHEXPORT_PT_ExporterPanel)
 
 
 if __name__ == "__main__":
