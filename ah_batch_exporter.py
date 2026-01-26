@@ -1,7 +1,7 @@
 bl_info = {
     "name": "Unreal Batch Exporter",
     "author": "Antti Heikkinen",
-    "version": (0, 1, 0),
+    "version": (0, 1, 2),
     "blender": (5, 0, 0),
     "description": "Batch export meshes to Unreal. Moves each root object to world origin and exports them as an .fbx",
     "category": "Utility",
@@ -22,9 +22,9 @@ def batch_export(context):
     if export_dir == "" or export_dir == "//":
         raise Exception("No path")
         
-    # Must be in object mode for the export to work. Also seems like you can't 
+    # Must be in object mode for the export to work. Also seems like you can't always switch back when you have empties selected, so this just leaves you in export mode
     if context.object.mode != 'OBJECT':
-            bpy.ops.object.mode_set(mode='OBJECT')
+        bpy.ops.object.mode_set(mode='OBJECT')
 
     view_layer = context.view_layer
 
@@ -68,11 +68,9 @@ def batch_export(context):
 
         bpy.ops.object.select_all(action='DESELECT')
 
-    # bpy.ops.object.mode_set(mode=mode_prev)
-
-
     view_layer.objects.active = obj_active
 
+    # Reselect previous selections
     for obj in selection:
         obj.select_set(True)
 
@@ -113,7 +111,6 @@ class UEBATCHEXPORT_PT_ExporterPanel(bpy.types.Panel):
         row = layout.row()
         row.scale_y = 3.0
         row.operator("ah.batch_exporter")
-
 
 
 # Register and add to the "object" menu (required to also use F3 search "Simple Object Operator" for quick access).
