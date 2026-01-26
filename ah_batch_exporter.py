@@ -9,11 +9,9 @@ bl_info = {
 }
 
 
-# exports each selected object into its own file
-
 import bpy
 import os
-# import mathutils as mu
+
 
 def batch_export(context): 
     scene = context.scene
@@ -23,6 +21,10 @@ def batch_export(context):
 
     if export_dir == "" or export_dir == "//":
         raise Exception("No path")
+        
+    # Must be in object mode for the export to work. Also seems like you can't 
+    if context.object.mode != 'OBJECT':
+            bpy.ops.object.mode_set(mode='OBJECT')
 
     view_layer = context.view_layer
 
@@ -32,13 +34,22 @@ def batch_export(context):
     bpy.ops.object.select_all(action='DESELECT')
 
     for obj in selection:
+        # Dictionary to contain empties (sockets) and their original scales so they can be scaled down. Otherwise unreal shows them as way too large
+        empty_scales = {}
         
+        # Select child objects
         for child in obj.children_recursive:
             child.select_set(True)
             
+            # Scale down the parented empties
+            if child.type == 'EMPTY':
+                print(child)
+                empty_scales[child] = tuple(child.scale)
+                child.scale = (.01, .01, .01)
+            
         obj.select_set(True)
     
-        # some exporters only use the active object
+        # Move Root object to origin
         view_layer.objects.active = obj
         original_pos = obj.location.copy()
         obj.location = (0., 0., 0.)
@@ -48,14 +59,16 @@ def batch_export(context):
 
         bpy.ops.export_scene.fbx(filepath=fn + ".fbx", use_selection=True, global_scale=1, apply_scale_options='FBX_SCALE_NONE', axis_forward='X', axis_up='Z', use_metadata=False)
 
-        # Can be used for multiple formats
-        # bpy.ops.export_scene.x3d(filepath=fn + ".x3d", use_selection=True)
-
+        # Return root back to original location
         obj.location = original_pos
+        
+        # Return empty object (socket) scales back to normal
+        for empty, old_scale in empty_scales.items():
+            empty.scale = old_scale
 
         bpy.ops.object.select_all(action='DESELECT')
 
-        # print("written:", fn)
+    # bpy.ops.object.mode_set(mode=mode_prev)
 
 
     view_layer.objects.active = obj_active
