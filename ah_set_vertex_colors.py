@@ -2,7 +2,7 @@
 bl_info = {
     "name": "Quick Vcol",
     "author": "Antti Heikkinen",
-    "version": (0, 1, 0),
+    "version": (0, 1, 1),
     "blender": (5, 0, 0),
     "description": "Change color values directly for selected vertices in a handy menu",
     "category": "Utility",
@@ -72,11 +72,11 @@ class QUICKVCOL_OT_ModColor(bpy.types.Operator):
         for obj in selection:
             mesh = obj.data
             editmode = False
+            mode_previous = context.object.mode
+           # print(mode_previous)
             
-            if obj.mode == 'EDIT':
-                
+            if obj.mode != 'OBJECT':
                 bpy.ops.object.mode_set(mode='OBJECT')
-                editmode = True
                 
                 # This was for edit mode using bmesh, but I couldn't get it working so I just switch to object mode and then back and it works fine
                 # Leaving this here in case I want to return to it some day
@@ -106,9 +106,15 @@ class QUICKVCOL_OT_ModColor(bpy.types.Operator):
                 colors_init = np.zeros((len(mesh.vertices), 4), dtype=np.float32)
                 colattr.data.foreach_set('color', np.ravel(colors_init))
                     
-            colattr = mesh.attributes.active_color
-            print(colattr)
+            if mesh.attributes.active_color is None:
+                mesh.color_attributes.active_index = 0
+ 
+            colattr = mesh.attributes.active_color 
+            
             selected_verts = [v.index for v in mesh.vertices if v.select]
+            
+            if not selected_verts:
+                raise exception("No vertices selected")
             
             for vert in selected_verts:
                 
@@ -124,9 +130,7 @@ class QUICKVCOL_OT_ModColor(bpy.types.Operator):
                     
                 colattr.data[vert].color = new_color
                 
-            # Reset mode to edit mode
-            if editmode:
-                bpy.ops.object.mode_set(mode='EDIT')
+            bpy.ops.object.mode_set(mode=mode_previous)
 
 
 class QUICKVCOL_PT_VcolPanel(bpy.types.Panel):
