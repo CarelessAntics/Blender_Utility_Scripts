@@ -57,7 +57,7 @@ def batch_export(context):
         name = bpy.path.clean_name(obj.name)
         fn = os.path.join(export_dir, name)
 
-        bpy.ops.export_scene.fbx(filepath=fn + ".fbx", use_selection=True, global_scale=100, apply_unit_scale=True, apply_scale_options='FBX_SCALE_ALL', use_mesh_modifiers=True, axis_forward='Y', axis_up='Z', use_metadata=False)
+        bpy.ops.export_scene.fbx(filepath=fn + ".fbx", use_selection=True, global_scale=1, apply_unit_scale=True, apply_scale_options='FBX_SCALE_ALL', use_mesh_modifiers=True, axis_forward='Y', axis_up='Z', use_metadata=False)
 
         # Return root back to original location
         obj.location = original_pos
