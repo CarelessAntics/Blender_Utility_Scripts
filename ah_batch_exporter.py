@@ -1,7 +1,7 @@
 bl_info = {
     "name": "Unreal Batch Exporter",
     "author": "Antti Heikkinen",
-    "version": (0, 1, 4),
+    "version": (0, 1, 45),
     "blender": (5, 0, 0),
     "description": "Batch export meshes to Unreal. Moves each root object to world origin and exports them as an .fbx",
     "category": "Utility",
@@ -57,7 +57,7 @@ def batch_export(context):
         name = bpy.path.clean_name(obj.name)
         fn = os.path.join(export_dir, name)
 
-        bpy.ops.export_scene.fbx(filepath=fn + ".fbx", use_selection=True, global_scale=1, apply_unit_scale=True, apply_scale_options='FBX_SCALE_ALL', use_mesh_modifiers=True, axis_forward='Y', axis_up='Z', use_metadata=False)
+        bpy.ops.export_scene.fbx(filepath=fn + ".fbx", use_selection=True, global_scale=1, apply_unit_scale=True, apply_scale_options='FBX_SCALE_ALL', use_mesh_modifiers=True, axis_forward='Y', axis_up='Z', use_metadata=False, mesh_smooth_type='SMOOTH_GROUP')
 
         # Return root back to original location
         obj.location = original_pos
