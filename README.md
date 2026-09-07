@@ -11,6 +11,15 @@ Menu panel location for all tools with a menu
 
 Exports selected objects as separate fbx files. Parent the exportable model to an empty, and name the empty as the desired filename. The script moves the selected root objects to scene origin and exports them to the selected directory.
 
+#### LodGroup Buttons
+
+Exporting LODs directly to UE requires a fbx_type: "LodGroup" custom property added to the root Empty. 
+
+-	**Prefix:** Use to filter empties by prefix
+-	**Selected:** Add the LodGroup property to selected Empties
+-	**All:** Add the LodGroup property to all Empties in the scene.
+-	**Prefix:** Add the LodGroup property to all Empties that have the prefix defined above
+
 The tool can be found on the right side of the viewport next to the gizmo and item properties (click on the tiny arrow for the toolbar to come out)
 
 ### ah_set_vertex_colors
